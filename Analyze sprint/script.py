@@ -69,8 +69,20 @@ stop_words_dict = {
 
 ### START FUNCTION
 def dictionary_of_metrics(items):
-    # your code here
-    return
+    #Converted the list of items into a numpy array called 'item_list'
+    items_np = np.array(items)
+    
+    #Return a dictionary with the metrics 'mean','median','std','var','min','max' as keys, and with  'items_rounded' values
+    metrics_dictionary = {'mean' : round(items_np.mean(), 2), 
+                         'median':round(np.median(items_np,axis = None), 2),
+                         'var' : round(items_np.var(ddof = 1), 2),
+                         'std' : round(items_np.std(ddof = 1), 2),
+                         'min' : round(items_np.min(), 2),
+                         'max' : round(items_np.max(), 2)}
+
+    return metrics_dictionary
+
+
 
 ### END FUNCTION
 
@@ -102,8 +114,12 @@ def number_of_tweets_per_day(df):
 
 ### START FUNCTION
 def word_splitter(df):
-    # your code here
-    return
+    df = twitter_df.copy() #Made a copy of the main twitter_df and call it df
+    tweets_dataseries = df['Tweets'] #Extract the tweets dataseries to a variable called tweets_dataseries
+    tweets_dataseries_lower = tweets_dataseries.str.lower() #Lowercase the tweets_dataseries
+    tweets_dataseries_split = tweets_dataseries_lower.str.split() #Split the lowercase tweets_dataseries
+    df['Split Tweets'] = tweets_dataseries_split #Create a new column called 'Split Tweets', add it to the  dataframe
+    return df
 
 ### END FUNCTION
 
