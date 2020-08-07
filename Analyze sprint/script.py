@@ -99,8 +99,22 @@ def date_parser(dates):
     return
 
 ### END FUNCTION
+
 ### START FUNCTION
+def filter_starts(sequence, sentence):
+    return [word for word in sentence if word.startswith(sequence)]
+
 def extract_municipality_hashtags(df):
+    split_tweets = [tweet.split() for tweet in df["Tweets"]]
+    
+    hashtags = [filter_starts('#', tweet) for tweet in split_tweets]
+    mentions = [[mun_dict[mention] for mention in filter_starts('@', tweet) if mention in mun_dict] for tweet in split_tweets]
+    
+    df['Municipality'] = [mun[0] if mun else np.nan for mun in mentions]
+    df["Hashtags"] = [ht if ht else np.nan for ht in hashtags]
+    return df
+    
+### END FUNCTION
     # your code here
     return
 
