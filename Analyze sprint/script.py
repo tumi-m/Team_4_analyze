@@ -115,16 +115,29 @@ def extract_municipality_hashtags(df):
     return df
     
 ### END FUNCTION
-    # your code here
-    return
+    def number_of_tweets_per_day(df):
+  """Function which takes a pandas dataframe as input of number of tweets per day and converts to new pandas dataframe into a new dataframe specified by the format yyyy-mm-dd
+
+  Parameters :
+    
+    Dataframe input converted to yyyy-mm-dd format
+    Groups by format and counts number of tweets
+
+  Return   :
+
+    DataFrame(df) : number of tweets per day organised in new dataframe grouped by day for dates 2019-11-20 to 2019-11-29
+  
+  """
+
+
+  df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%Y-%m-%d') #dataframe input converted to yyyy-mm-dd format
+  new_df = df.groupby('Date').count() #groups by format and counts number of tweets
+  return new_df
+### END FUNCTION
 
 ### END FUNCTION
 ### START FUNCTION
-def number_of_tweets_per_day(df):
-    # your code here
-"""Function which list number of tweets per day by converting pandas dataframe into a new dataframe specified by yyyy-mm-dd"""
-  df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%Y-%m-%d')
-  return df.groupby('Date').count()
+
 
 
 ### END FUNCTION
